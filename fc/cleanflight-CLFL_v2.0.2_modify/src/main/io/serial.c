@@ -109,7 +109,11 @@ void pgResetFn_serialConfig(serialConfig_t *serialConfig)
 
     for (int i = 0; i < SERIAL_PORT_COUNT; i++) {
         serialConfig->portConfigs[i].identifier = serialPortIdentifiers[i];
+#ifdef QINGLUAN
+        serialConfig->portConfigs[i].msp_baudrateIndex = BAUD_57600;
+#else
         serialConfig->portConfigs[i].msp_baudrateIndex = BAUD_115200;
+#endif
         serialConfig->portConfigs[i].gps_baudrateIndex = BAUD_57600;
         serialConfig->portConfigs[i].telemetry_baudrateIndex = BAUD_AUTO;
         serialConfig->portConfigs[i].blackbox_baudrateIndex = BAUD_115200;

@@ -132,7 +132,9 @@ void pgResetFn_rxConfig(rxConfig_t *rxConfig)
         .airModeActivateThreshold = 1350
     );
 
-#ifdef RX_CHANNELS_TAER
+#if defined(QINGLUAN)
+    parseRcChannels("AE12TR34", rxConfig);
+#elif defined(RX_CHANNELS_TAER)
     parseRcChannels("TAER1234", rxConfig);
 #else
     parseRcChannels("AETR1234", rxConfig);

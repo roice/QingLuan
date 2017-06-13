@@ -13,7 +13,7 @@
 
 
 # Things that the user might override on the commandline
-#
+CFLAGS    += -DQINGLUAN
 
 # The target to build, see VALID_TARGETS below
 TARGET    ?= SPRACINGF3
