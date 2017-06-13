@@ -57,7 +57,11 @@ mag_t mag;                   // mag access functions
 PG_REGISTER_WITH_RESET_TEMPLATE(compassConfig_t, compassConfig, PG_COMPASS_CONFIG, 0);
 
 PG_RESET_TEMPLATE(compassConfig_t, compassConfig,
+#ifdef QINGLUAN
+    .mag_align = CW135_DEG,
+#else
     .mag_align = ALIGN_DEFAULT,
+#endif
     // xxx_hardware: 0:default/autodetect, 1: disable
     .mag_hardware = 0,
     .mag_declination = 0,

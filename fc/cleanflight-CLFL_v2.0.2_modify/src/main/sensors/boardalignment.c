@@ -116,6 +116,11 @@ void alignSensors(int32_t *dest, uint8_t rotation)
         dest[Y] = -x;
         dest[Z] = -z;
         break;
+    case CW135_DEG: // QINGLUAN
+        dest[X] = 0.7071068*(y-x);
+        dest[Y] = -0.7071068*(x+y);
+        dest[Z] = z;
+        break;
     }
 
     if (!standardBoardAlignment)
