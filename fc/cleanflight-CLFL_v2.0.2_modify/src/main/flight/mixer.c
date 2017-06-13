@@ -74,6 +74,11 @@ PG_REGISTER_WITH_RESET_FN(motorConfig_t, motorConfig, PG_MOTOR_CONFIG, 0);
 
 void pgResetFn_motorConfig(motorConfig_t *motorConfig)
 {
+#ifdef QINGLUAN
+motorConfig->minthrottle = 1070;
+motorConfig->dev.motorPwmRate = BRUSHLESS_MOTORS_PWM_RATE;
+motorConfig->dev.motorPwmProtocol = PWM_TYPE_STANDARD;
+#else
 #ifdef BRUSHED_MOTORS
     motorConfig->minthrottle = 1000;
     motorConfig->dev.motorPwmRate = BRUSHED_MOTORS_PWM_RATE;
@@ -94,6 +99,7 @@ void pgResetFn_motorConfig(motorConfig_t *motorConfig)
         motorConfig->dev.motorPwmProtocol = PWM_TYPE_ONESHOT125;
     }
 #endif
+#endif // QINGLUAN
     motorConfig->maxthrottle = 2000;
     motorConfig->mincommand = 1000;
     motorConfig->digitalIdleOffsetValue = 450;
