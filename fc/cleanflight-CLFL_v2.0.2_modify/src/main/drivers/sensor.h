@@ -32,7 +32,7 @@ typedef enum {
     CW90_DEG_FLIP = 6,
     CW180_DEG_FLIP = 7,
     CW270_DEG_FLIP = 8,
-    CW135_DEG = 9, // QINGLUAN
+    CW315_DEG = 9, // QINGLUAN
 } sensor_align_e;
 
 typedef union busDevice_t {
