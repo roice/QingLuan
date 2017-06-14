@@ -25,7 +25,11 @@ typedef enum {
 } inputFilteringMode_e;
 
 #define PPM_RCVR_TIMEOUT            0
+#ifdef QINGLUAN
+#define PWM_INPUT_PORT_COUNT        6
+#else
 #define PWM_INPUT_PORT_COUNT        8
+#endif
 
 typedef struct ppmConfig_s {
     ioTag_t ioTag;
