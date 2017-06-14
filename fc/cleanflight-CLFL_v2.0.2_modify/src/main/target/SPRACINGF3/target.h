@@ -140,6 +140,12 @@
 #define SONAR_SOFTSERIAL2_EXCLUSIVE
 #endif
 
+#ifdef QINGLUAN
+#define SONAR
+#define SONAR_TRIGGER_PIN       PB0
+#define SONAR_ECHO_PIN          PB1
+#endif
+
 #define USE_ESCSERIAL
 #define ESCSERIAL_TIMER_TX_HARDWARE 0 // PWM 1
 
