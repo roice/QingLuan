@@ -61,7 +61,7 @@ PG_RESET_TEMPLATE(compassConfig_t, compassConfig,
     .mag_align = CW45_DEG, // CW270_DEG(board) + CW135_DEG(external_vs_board)
     // xxx_hardware: 0:default/autodetect, 1: disable
     .mag_hardware = 0,
-    .mag_declination = 0,
+    .mag_declination = -652,
     .interruptTag = COMPASS_INTERRUPT_TAG
 );
 #else
