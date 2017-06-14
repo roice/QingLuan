@@ -47,7 +47,7 @@ baro_t baro;                        // barometer access functions
 PG_REGISTER_WITH_RESET_TEMPLATE(barometerConfig_t, barometerConfig, PG_BAROMETER_CONFIG, 0);
 
 PG_RESET_TEMPLATE(barometerConfig_t, barometerConfig,
-    .baro_hardware = 1,
+    .baro_hardware = 0,
     .baro_sample_count = 21,
     .baro_noise_lpf = 600,
     .baro_cf_vel = 985,
