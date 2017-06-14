@@ -58,7 +58,7 @@ PG_REGISTER_WITH_RESET_TEMPLATE(compassConfig_t, compassConfig, PG_COMPASS_CONFI
 
 #ifdef QINGLUAN
 PG_RESET_TEMPLATE(compassConfig_t, compassConfig,
-    .mag_align = CW315_DEG,
+    .mag_align = CW45_DEG, // CW270_DEG(board) + CW135_DEG(external_vs_board)
     // xxx_hardware: 0:default/autodetect, 1: disable
     .mag_hardware = 0,
     .mag_declination = 0,
