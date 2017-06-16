@@ -53,16 +53,16 @@ uint32_t GPS_coord_to_degrees(const char* coordinateString)
         minutes += DIGIT_TO_VAL(*remainingString++);
     }
     // convert fractional minutes
-    // expect up to four digits, result is in
-    // ten-thousandths of a minute
+    // expect up to six digits, result is in
+    // thousand-thousandths of a minute
     if (*fieldSeparator == '.') {
         remainingString = fieldSeparator + 1;
-        for (digitIndex = 0; digitIndex < 4; digitIndex++) {
+        for (digitIndex = 0; digitIndex < 6; digitIndex++) {
             fractionalMinutes *= 10;
             if (isdigit((unsigned char)*remainingString))
                 fractionalMinutes += *remainingString++ - '0';
         }
     }
-    return degress * 10000000UL + (minutes * 1000000UL + fractionalMinutes * 100UL) / 6;
+    return degress * 1000000000UL + (minutes * 100000000UL + fractionalMinutes * 100UL) / 6;
 }
 #endif
