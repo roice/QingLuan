@@ -63,6 +63,6 @@ uint32_t GPS_coord_to_degrees(const char* coordinateString)
                 fractionalMinutes += *remainingString++ - '0';
         }
     }
-    return degress * 1000000000UL + (minutes * 100000000UL + fractionalMinutes * 100UL) / 6;
+    return degress * 10000000UL + (minutes * 1000000UL + fractionalMinutes) / 6;
 }
 #endif
