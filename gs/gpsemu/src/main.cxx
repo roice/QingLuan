@@ -4,6 +4,7 @@
  * Date:        2017.06.15 
  */
 
+#include <stdio.h>
 #include <cmath>
 #include <string.h>
 /* Linux Network */
@@ -19,7 +20,7 @@
 #define DEG2RAD     (M_PI/180.0)
 
 // local lat/lon/h of ENU
-double llh_local[3] = {0*DEG2RAD, 0*DEG2RAD, 100.};
+double llh_local[3] = {37.*DEG2RAD, 118.*DEG2RAD, 100.};
 
 // NMEA GPGGA buffer
 unsigned char buff[1024];
@@ -28,6 +29,9 @@ int main(int argc, char **argv)
 {
     /* initialize settings */
     config_restore();
+
+    /* save settings */
+    config_save();
 
     /* get configs */
     config_t* configs = get_configs();
@@ -45,16 +49,24 @@ int main(int argc, char **argv)
     req.tv_nsec = 100000000L; // 100 ms
     double enu[3];
     sol_t sol = {0};
+    double ecef_local[3] = {0};
+    double enu_local[3] = {0};
+    pos2ecef(llh_local, ecef_local);
+    ecef2enu(llh_local, ecef_local, enu_local);
     while (true)
     {
         // retrieve position (horizontal)
-        enu[0] = mocap_data->robot[0].pos[0];
-        enu[1] = mocap_data->robot[0].pos[1];
-        enu[2] = mocap_data->robot[0].pos[2];
+        enu[0] = mocap_data->robot[0].enu[0] + enu_local[0];
+        enu[1] = mocap_data->robot[0].enu[1] + enu_local[1];
+        enu[2] = mocap_data->robot[0].enu[2] + enu_local[2];
+
+        printf("Local ENU: %2.2f, %2.2f, %2.2f\n", enu[0], enu[1], enu[2]);
 
         // convert it to GPS coordinate
         memset(sol.rr, 0, sizeof(sol.rr));
         enu2ecef(llh_local, enu, sol.rr);
+
+        printf("ECEF: %.2f, %.2f, %.2f\n", sol.rr[0], sol.rr[1], sol.rr[2]);
 
         // implement NMEA packets (GPGGA)
         sol.time = utc2gpst(timeget());
@@ -73,8 +85,6 @@ int main(int argc, char **argv)
 
     /* terminate motion capture packet decoder */
     mocap_client_close();
-
-    /* save settings */
-    config_save();
+ 
     return 0;
 }

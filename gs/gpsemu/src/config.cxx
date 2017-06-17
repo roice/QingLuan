@@ -57,7 +57,7 @@ void config_save(void)
 /* init settings */
 void config_init(void)
 {
-    settings.addr_netcard_mocap = "192.168.20.102";
+    settings.addr_netcard_mocap = "192.168.20.105";
     settings.addr_uav = "192.168.30.101";
 }
 

@@ -1171,7 +1171,7 @@ extern int outnmea_gga(unsigned char *buff, const sol_t *sol)
     time=gpst2utc(sol->time);
     if (time.sec>=0.995) {time.time++; time.sec=0.0;}
     time2epoch(time,ep);
-    ecef2pos(sol->rr,pos);
+    ecef2pos(sol->rr,pos);    
     h=geoidh(pos);
     deg2dms(fabs(pos[0])*R2D,dms1,7);
     deg2dms(fabs(pos[1])*R2D,dms2,7);
@@ -1179,6 +1179,10 @@ extern int outnmea_gga(unsigned char *buff, const sol_t *sol)
                ep[3],ep[4],ep[5],dms1[0],dms1[1]+dms1[2]/60.0,pos[0]>=0?"N":"S",
                dms2[0],dms2[1]+dms2[2]/60.0,pos[1]>=0?"E":"W",solq,
                sol->ns,dop,pos[2]-h,h,sol->age);
+
+printf("%s\n", buff);
+
+
     for (q=(char *)buff+1,sum=0;*q;q++) sum^=*q; /* check-sum */
     p+=sprintf(p,"*%02X%c%c",sum,0x0D,0x0A);
     return p-(char *)buff;
