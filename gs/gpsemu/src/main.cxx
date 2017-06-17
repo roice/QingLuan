@@ -71,6 +71,7 @@ int main(int argc, char **argv)
         // implement NMEA packets (GPGGA)
         sol.time = utc2gpst(timeget());
         sol.stat = SOLQ_FIX;
+        sol.ns = 6; // cleanflight requires >5 satellites to enable GPS_HOLD
         outnmea_gga(buff, &sol);
 
         // send it to the UAV
